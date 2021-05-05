@@ -16,6 +16,7 @@ namespace PBL3.BLL
         {
             get
             {
+
                 if (_Instance == null)
                 {
                     _Instance = new BLL_Lichtap();
