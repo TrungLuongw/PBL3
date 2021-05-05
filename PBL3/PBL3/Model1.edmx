@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PBLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chucvu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="chucvu" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="GoiTap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="30" />
+          <Property Name="mota" Type="nvarchar" MaxLength="100" />
+          <Property Name="sobuoi" Type="int" />
+          <Property Name="giatien" Type="float" />
+        </EntityType>
+        <EntityType Name="Hopdong">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idKH" Type="int" />
+          <Property Name="idgoitap" Type="int" />
+          <Property Name="idstatus" Type="int" />
+          <Property Name="ngayki" Type="date" />
+          <Property Name="ngayhethan" Type="date" />
+          <Property Name="idpt" Type="int" />
+        </EntityType>
+        <EntityType Name="lichtap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idhopdong" Type="int" />
+          <Property Name="idngay" Type="int" />
+          <Property Name="idtime" Type="int" />
+        </EntityType>
+        <EntityType Name="Ngay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Thu" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idnv" Type="int" />
+          <Property Name="soluonghd" Type="int" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="taikhoan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="idnv" Type="int" />
+          <Property Name="pass" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="ThoiGian">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TTKH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="sdt" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="ngaysinh" Type="date" />
+          <Property Name="diachi" Type="nvarchar" MaxLength="40" />
+          <Property Name="cmnd" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="TTNV">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="30" />
+          <Property Name="sdt" Type="nvarchar" MaxLength="12" />
+          <Property Name="ngaysinh" Type="date" />
+          <Property Name="diachi" Type="nvarchar" MaxLength="40" />
+          <Property Name="cmnd" Type="nvarchar" MaxLength="10" />
+          <Property Name="ngayvao" Type="date" />
+          <Property Name="ngayra" Type="date" />
+          <Property Name="idchucvu" Type="int" />
+        </EntityType>
+        <Association Name="FK__Hopdong__idgoita__5EBF139D">
+          <End Role="GoiTap" Type="Self.GoiTap" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoiTap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idgoitap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idpt__5DCAEF64">
+          <End Role="TTKH" Type="Self.TTKH" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTKH">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idpt__60A75C0F">
+          <End Role="PT" Type="Self.PT" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idpt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idstatu__5FB337D6">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idngay__6477ECF3">
+          <End Role="Ngay" Type="Self.Ngay" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ngay">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idngay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idtime__6383C8BA">
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hopdong">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idhopdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idtime__656C112C">
+          <End Role="ThoiGian" Type="Self.ThoiGian" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThoiGian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PT__soluonghd__5AEE82B9">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="PT" Type="Self.PT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PT">
+              <PropertyRef Name="idnv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__taikhoan__pass__5812160E">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="taikhoan" Type="Self.taikhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="taikhoan">
+              <PropertyRef Name="idnv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TTNV__idchucvu__3E52440B">
+          <End Role="Chucvu" Type="Self.Chucvu" Multiplicity="0..1" />
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chucvu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTNV">
+              <PropertyRef Name="idchucvu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PBLModelStoreContainer">
+          <EntitySet Name="Chucvu" EntityType="Self.Chucvu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoiTap" EntityType="Self.GoiTap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hopdong" EntityType="Self.Hopdong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lichtap" EntityType="Self.lichtap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ngay" EntityType="Self.Ngay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PT" EntityType="Self.PT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="taikhoan" EntityType="Self.taikhoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThoiGian" EntityType="Self.ThoiGian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TTKH" EntityType="Self.TTKH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TTNV" EntityType="Self.TTNV" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Hopdong__idgoita__5EBF139D" Association="Self.FK__Hopdong__idgoita__5EBF139D">
+            <End Role="GoiTap" EntitySet="GoiTap" />
+            <End Role="Hopdong" EntitySet="Hopdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idpt__5DCAEF64" Association="Self.FK__Hopdong__idpt__5DCAEF64">
+            <End Role="TTKH" EntitySet="TTKH" />
+            <End Role="Hopdong" EntitySet="Hopdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idpt__60A75C0F" Association="Self.FK__Hopdong__idpt__60A75C0F">
+            <End Role="PT" EntitySet="PT" />
+            <End Role="Hopdong" EntitySet="Hopdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idstatu__5FB337D6" Association="Self.FK__Hopdong__idstatu__5FB337D6">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Hopdong" EntitySet="Hopdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idngay__6477ECF3" Association="Self.FK__lichtap__idngay__6477ECF3">
+            <End Role="Ngay" EntitySet="Ngay" />
+            <End Role="lichtap" EntitySet="lichtap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idtime__6383C8BA" Association="Self.FK__lichtap__idtime__6383C8BA">
+            <End Role="Hopdong" EntitySet="Hopdong" />
+            <End Role="lichtap" EntitySet="lichtap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idtime__656C112C" Association="Self.FK__lichtap__idtime__656C112C">
+            <End Role="ThoiGian" EntitySet="ThoiGian" />
+            <End Role="lichtap" EntitySet="lichtap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PT__soluonghd__5AEE82B9" Association="Self.FK__PT__soluonghd__5AEE82B9">
+            <End Role="TTNV" EntitySet="TTNV" />
+            <End Role="PT" EntitySet="PT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__taikhoan__pass__5812160E" Association="Self.FK__taikhoan__pass__5812160E">
+            <End Role="TTNV" EntitySet="TTNV" />
+            <End Role="taikhoan" EntitySet="taikhoan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TTNV__idchucvu__3E52440B" Association="Self.FK__TTNV__idchucvu__3E52440B">
+            <End Role="Chucvu" EntitySet="Chucvu" />
+            <End Role="TTNV" EntitySet="TTNV" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PBLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chucvu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="chucvu1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TTNVs" Relationship="Self.FK__TTNV__idchucvu__3E52440B" FromRole="Chucvu" ToRole="TTNV" />
+        </EntityType>
+        <EntityType Name="GoiTap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="mota" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sobuoi" Type="Int32" />
+          <Property Name="giatien" Type="Double" />
+          <NavigationProperty Name="Hopdongs" Relationship="Self.FK__Hopdong__idgoita__5EBF139D" FromRole="GoiTap" ToRole="Hopdong" />
+        </EntityType>
+        <EntityType Name="Hopdong">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idKH" Type="Int32" />
+          <Property Name="idgoitap" Type="Int32" />
+          <Property Name="idstatus" Type="Int32" />
+          <Property Name="ngayki" Type="DateTime" Precision="0" />
+          <Property Name="ngayhethan" Type="DateTime" Precision="0" />
+          <Property Name="idpt" Type="Int32" />
+          <NavigationProperty Name="GoiTap" Relationship="Self.FK__Hopdong__idgoita__5EBF139D" FromRole="Hopdong" ToRole="GoiTap" />
+          <NavigationProperty Name="TTKH" Relationship="Self.FK__Hopdong__idpt__5DCAEF64" FromRole="Hopdong" ToRole="TTKH" />
+          <NavigationProperty Name="PT" Relationship="Self.FK__Hopdong__idpt__60A75C0F" FromRole="Hopdong" ToRole="PT" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Hopdong__idstatu__5FB337D6" FromRole="Hopdong" ToRole="Status" />
+          <NavigationProperty Name="lichtaps" Relationship="Self.FK__lichtap__idtime__6383C8BA" FromRole="Hopdong" ToRole="lichtap" />
+        </EntityType>
+        <EntityType Name="lichtap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idhopdong" Type="Int32" />
+          <Property Name="idngay" Type="Int32" />
+          <Property Name="idtime" Type="Int32" />
+          <NavigationProperty Name="Hopdong" Relationship="Self.FK__lichtap__idtime__6383C8BA" FromRole="lichtap" ToRole="Hopdong" />
+          <NavigationProperty Name="Ngay" Relationship="Self.FK__lichtap__idngay__6477ECF3" FromRole="lichtap" ToRole="Ngay" />
+          <NavigationProperty Name="ThoiGian" Relationship="Self.FK__lichtap__idtime__656C112C" FromRole="lichtap" ToRole="ThoiGian" />
+        </EntityType>
+        <EntityType Name="Ngay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Thu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lichtaps" Relationship="Self.FK__lichtap__idngay__6477ECF3" FromRole="Ngay" ToRole="lichtap" />
+        </EntityType>
+        <EntityType Name="PT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idnv" Type="Int32" />
+          <Property Name="soluonghd" Type="Int32" />
+          <NavigationProperty Name="Hopdongs" Relationship="Self.FK__Hopdong__idpt__60A75C0F" FromRole="PT" ToRole="Hopdong" />
+          <NavigationProperty Name="TTNV" Relationship="Self.FK__PT__soluonghd__5AEE82B9" FromRole="PT" ToRole="TTNV" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ten" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hopdongs" Relationship="Self.FK__Hopdong__idstatu__5FB337D6" FromRole="Status" ToRole="Hopdong" />
+        </EntityType>
+        <EntityType Name="taikhoan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idnv" Type="Int32" />
+          <Property Name="pass" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TTNV" Relationship="Self.FK__taikhoan__pass__5812160E" FromRole="taikhoan" ToRole="TTNV" />
+        </EntityType>
+        <EntityType Name="ThoiGian">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lichtaps" Relationship="Self.FK__lichtap__idtime__656C112C" FromRole="ThoiGian" ToRole="lichtap" />
+        </EntityType>
+        <EntityType Name="TTKH">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sdt" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ngaysinh" Type="DateTime" Precision="0" />
+          <Property Name="diachi" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="cmnd" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hopdongs" Relationship="Self.FK__Hopdong__idpt__5DCAEF64" FromRole="TTKH" ToRole="Hopdong" />
+        </EntityType>
+        <EntityType Name="TTNV">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="ngaysinh" Type="DateTime" Precision="0" />
+          <Property Name="diachi" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="cmnd" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ngayvao" Type="DateTime" Precision="0" />
+          <Property Name="ngayra" Type="DateTime" Precision="0" />
+          <Property Name="idchucvu" Type="Int32" />
+          <NavigationProperty Name="Chucvu" Relationship="Self.FK__TTNV__idchucvu__3E52440B" FromRole="TTNV" ToRole="Chucvu" />
+          <NavigationProperty Name="PTs" Relationship="Self.FK__PT__soluonghd__5AEE82B9" FromRole="TTNV" ToRole="PT" />
+          <NavigationProperty Name="taikhoans" Relationship="Self.FK__taikhoan__pass__5812160E" FromRole="TTNV" ToRole="taikhoan" />
+        </EntityType>
+        <Association Name="FK__TTNV__idchucvu__3E52440B">
+          <End Role="Chucvu" Type="Self.Chucvu" Multiplicity="0..1" />
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chucvu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TTNV">
+              <PropertyRef Name="idchucvu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idgoita__5EBF139D">
+          <End Role="GoiTap" Type="Self.GoiTap" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoiTap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idgoitap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idpt__5DCAEF64">
+          <End Role="TTKH" Type="Self.TTKH" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTKH">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idpt__60A75C0F">
+          <End Role="PT" Type="Self.PT" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idpt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hopdong__idstatu__5FB337D6">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Hopdong">
+              <PropertyRef Name="idstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idtime__6383C8BA">
+          <End Role="Hopdong" Type="Self.Hopdong" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hopdong">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idhopdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idngay__6477ECF3">
+          <End Role="Ngay" Type="Self.Ngay" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ngay">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idngay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__lichtap__idtime__656C112C">
+          <End Role="ThoiGian" Type="Self.ThoiGian" Multiplicity="0..1" />
+          <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThoiGian">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lichtap">
+              <PropertyRef Name="idtime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PT__soluonghd__5AEE82B9">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="PT" Type="Self.PT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PT">
+              <PropertyRef Name="idnv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__taikhoan__pass__5812160E">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="taikhoan" Type="Self.taikhoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="taikhoan">
+              <PropertyRef Name="idnv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PBL" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chucvus" EntityType="Self.Chucvu" />
+          <EntitySet Name="GoiTaps" EntityType="Self.GoiTap" />
+          <EntitySet Name="Hopdongs" EntityType="Self.Hopdong" />
+          <EntitySet Name="lichtaps" EntityType="Self.lichtap" />
+          <EntitySet Name="Ngays" EntityType="Self.Ngay" />
+          <EntitySet Name="PTs" EntityType="Self.PT" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="taikhoans" EntityType="Self.taikhoan" />
+          <EntitySet Name="ThoiGians" EntityType="Self.ThoiGian" />
+          <EntitySet Name="TTKHs" EntityType="Self.TTKH" />
+          <EntitySet Name="TTNVs" EntityType="Self.TTNV" />
+          <AssociationSet Name="FK__TTNV__idchucvu__3E52440B" Association="Self.FK__TTNV__idchucvu__3E52440B">
+            <End Role="Chucvu" EntitySet="Chucvus" />
+            <End Role="TTNV" EntitySet="TTNVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idgoita__5EBF139D" Association="Self.FK__Hopdong__idgoita__5EBF139D">
+            <End Role="GoiTap" EntitySet="GoiTaps" />
+            <End Role="Hopdong" EntitySet="Hopdongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idpt__5DCAEF64" Association="Self.FK__Hopdong__idpt__5DCAEF64">
+            <End Role="TTKH" EntitySet="TTKHs" />
+            <End Role="Hopdong" EntitySet="Hopdongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idpt__60A75C0F" Association="Self.FK__Hopdong__idpt__60A75C0F">
+            <End Role="PT" EntitySet="PTs" />
+            <End Role="Hopdong" EntitySet="Hopdongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hopdong__idstatu__5FB337D6" Association="Self.FK__Hopdong__idstatu__5FB337D6">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Hopdong" EntitySet="Hopdongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idtime__6383C8BA" Association="Self.FK__lichtap__idtime__6383C8BA">
+            <End Role="Hopdong" EntitySet="Hopdongs" />
+            <End Role="lichtap" EntitySet="lichtaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idngay__6477ECF3" Association="Self.FK__lichtap__idngay__6477ECF3">
+            <End Role="Ngay" EntitySet="Ngays" />
+            <End Role="lichtap" EntitySet="lichtaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__lichtap__idtime__656C112C" Association="Self.FK__lichtap__idtime__656C112C">
+            <End Role="ThoiGian" EntitySet="ThoiGians" />
+            <End Role="lichtap" EntitySet="lichtaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PT__soluonghd__5AEE82B9" Association="Self.FK__PT__soluonghd__5AEE82B9">
+            <End Role="TTNV" EntitySet="TTNVs" />
+            <End Role="PT" EntitySet="PTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__taikhoan__pass__5812160E" Association="Self.FK__taikhoan__pass__5812160E">
+            <End Role="TTNV" EntitySet="TTNVs" />
+            <End Role="taikhoan" EntitySet="taikhoans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PBLModelStoreContainer" CdmEntityContainer="PBL">
+          <EntitySetMapping Name="Chucvus">
+            <EntityTypeMapping TypeName="PBLModel.Chucvu">
+              <MappingFragment StoreEntitySet="Chucvu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="chucvu1" ColumnName="chucvu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoiTaps">
+            <EntityTypeMapping TypeName="PBLModel.GoiTap">
+              <MappingFragment StoreEntitySet="GoiTap">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+                <ScalarProperty Name="sobuoi" ColumnName="sobuoi" />
+                <ScalarProperty Name="giatien" ColumnName="giatien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hopdongs">
+            <EntityTypeMapping TypeName="PBLModel.Hopdong">
+              <MappingFragment StoreEntitySet="Hopdong">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idKH" ColumnName="idKH" />
+                <ScalarProperty Name="idgoitap" ColumnName="idgoitap" />
+                <ScalarProperty Name="idstatus" ColumnName="idstatus" />
+                <ScalarProperty Name="ngayki" ColumnName="ngayki" />
+                <ScalarProperty Name="ngayhethan" ColumnName="ngayhethan" />
+                <ScalarProperty Name="idpt" ColumnName="idpt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lichtaps">
+            <EntityTypeMapping TypeName="PBLModel.lichtap">
+              <MappingFragment StoreEntitySet="lichtap">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idhopdong" ColumnName="idhopdong" />
+                <ScalarProperty Name="idngay" ColumnName="idngay" />
+                <ScalarProperty Name="idtime" ColumnName="idtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ngays">
+            <EntityTypeMapping TypeName="PBLModel.Ngay">
+              <MappingFragment StoreEntitySet="Ngay">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Thu" ColumnName="Thu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PTs">
+            <EntityTypeMapping TypeName="PBLModel.PT">
+              <MappingFragment StoreEntitySet="PT">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idnv" ColumnName="idnv" />
+                <ScalarProperty Name="soluonghd" ColumnName="soluonghd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PBLModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="taikhoans">
+            <EntityTypeMapping TypeName="PBLModel.taikhoan">
+              <MappingFragment StoreEntitySet="taikhoan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idnv" ColumnName="idnv" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThoiGians">
+            <EntityTypeMapping TypeName="PBLModel.ThoiGian">
+              <MappingFragment StoreEntitySet="ThoiGian">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTKHs">
+            <EntityTypeMapping TypeName="PBLModel.TTKH">
+              <MappingFragment StoreEntitySet="TTKH">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="cmnd" ColumnName="cmnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTNVs">
+            <EntityTypeMapping TypeName="PBLModel.TTNV">
+              <MappingFragment StoreEntitySet="TTNV">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="cmnd" ColumnName="cmnd" />
+                <ScalarProperty Name="ngayvao" ColumnName="ngayvao" />
+                <ScalarProperty Name="ngayra" ColumnName="ngayra" />
+                <ScalarProperty Name="idchucvu" ColumnName="idchucvu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
