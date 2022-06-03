@@ -1,4 +1,5 @@
-﻿using PBL3.View;
+﻿using PBL3.BLL;
+using PBL3.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,6 +44,11 @@ namespace PBL3
 
             tbpass.ForeColor = Color.White;
             panel3.BackColor = Color.White;
+            label2.Text = "";
+        }
+        private void clos()
+        {
+            this.Dispose();
         }
 
         private void tbuser_Click(object sender, EventArgs e)
@@ -98,17 +104,30 @@ namespace PBL3
 
             tbuser.ForeColor = Color.White;
             panel2.BackColor = Color.White;
+            label2.Text = "";
         }
 
         private void btSignIn_Click(object sender, EventArgs e)
         {
             this.TopMost = true;
 
-            if (true)
+            if (BLL_Dangnhap.Instance.KiemTraDangNhap(tbuser.Text, tbpass.Text))
             {
-                f = new Form2();
+                f = new Form2(BLL_Dangnhap.Instance.iduser(tbuser.Text, tbpass.Text));
+                f.d += new Form2.Mydel(clos);
+                
                 f.Show();
                 timer1.Start();
+                
+                tbuser.Text = "";
+                tbpass.Text = "";
+                label2.Text = "";
+            }
+            else
+            {
+                tbuser.Text = "";
+                tbpass.Text = "";
+                label2.Text = "Sai tên tài khoản hoặc  mật khẩu";
             }
 
            // this.Hide();
@@ -119,7 +138,7 @@ namespace PBL3
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Left += 20;
+            this.Left += 30;
             if(this.Left>f.Width+this.Width)
             {
                 timer1.Stop();
@@ -134,11 +153,11 @@ namespace PBL3
             this.Left -= 20;
             if (this.Left <= 600)
             {
-                
-                
-                this.WindowState = FormWindowState.Minimized;
+
+
+                this.Hide();
                 timer2.Stop();
-                
+                f.TopMost = false;
                 
             }
         }

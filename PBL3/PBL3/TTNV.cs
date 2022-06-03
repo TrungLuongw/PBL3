@@ -11,19 +11,18 @@ namespace PBL3
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class TTNV
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TTNV()
         {
+            this.LichSus = new HashSet<LichSu>();
             this.PTs = new HashSet<PT>();
             this.taikhoans = new HashSet<taikhoan>();
         }
     
         public int id { get; set; }
-        
         public string ten { get; set; }
         public string sdt { get; set; }
         public Nullable<System.DateTime> ngaysinh { get; set; }
@@ -32,8 +31,11 @@ namespace PBL3
         public Nullable<System.DateTime> ngayvao { get; set; }
         public Nullable<System.DateTime> ngayra { get; set; }
         public Nullable<int> idchucvu { get; set; }
+        public byte[] Hinh { get; set; }
     
         public virtual Chucvu Chucvu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSu> LichSus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PT> PTs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -34,6 +34,18 @@
           <Property Name="ngayhethan" Type="date" />
           <Property Name="idpt" Type="int" />
         </EntityType>
+        <EntityType Name="LichSu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idnv" Type="int" />
+          <Property Name="idkh" Type="int" />
+          <Property Name="maso" Type="int" />
+          <Property Name="noidung" Type="nvarchar(max)" />
+          <Property Name="tien" Type="float" />
+          <Property Name="ngay" Type="date" />
+        </EntityType>
         <EntityType Name="lichtap">
           <Key>
             <PropertyRef Name="id" />
@@ -90,6 +102,7 @@
           <Property Name="ngaysinh" Type="date" />
           <Property Name="diachi" Type="nvarchar" MaxLength="40" />
           <Property Name="cmnd" Type="nvarchar" MaxLength="10" />
+          <Property Name="Hinh" Type="image" />
         </EntityType>
         <EntityType Name="TTNV">
           <Key>
@@ -104,6 +117,7 @@
           <Property Name="ngayvao" Type="date" />
           <Property Name="ngayra" Type="date" />
           <Property Name="idchucvu" Type="int" />
+          <Property Name="Hinh" Type="image" />
         </EntityType>
         <Association Name="FK__Hopdong__idgoita__5EBF139D">
           <End Role="GoiTap" Type="Self.GoiTap" Multiplicity="0..1" />
@@ -150,6 +164,18 @@
             </Principal>
             <Dependent Role="Hopdong">
               <PropertyRef Name="idstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LichSu__tien__160F4887">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="LichSu" Type="Self.LichSu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LichSu">
+              <PropertyRef Name="idnv" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,6 +255,7 @@
           <EntitySet Name="Chucvu" EntityType="Self.Chucvu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoiTap" EntityType="Self.GoiTap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hopdong" EntityType="Self.Hopdong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichSu" EntityType="Self.LichSu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lichtap" EntityType="Self.lichtap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ngay" EntityType="Self.Ngay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PT" EntityType="Self.PT" Schema="dbo" store:Type="Tables" />
@@ -252,6 +279,10 @@
           <AssociationSet Name="FK__Hopdong__idstatu__5FB337D6" Association="Self.FK__Hopdong__idstatu__5FB337D6">
             <End Role="Status" EntitySet="Status" />
             <End Role="Hopdong" EntitySet="Hopdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LichSu__tien__160F4887" Association="Self.FK__LichSu__tien__160F4887">
+            <End Role="TTNV" EntitySet="TTNV" />
+            <End Role="LichSu" EntitySet="LichSu" />
           </AssociationSet>
           <AssociationSet Name="FK__lichtap__idngay__6477ECF3" Association="Self.FK__lichtap__idngay__6477ECF3">
             <End Role="Ngay" EntitySet="Ngay" />
@@ -319,6 +350,19 @@
           <NavigationProperty Name="Status" Relationship="Self.FK__Hopdong__idstatu__5FB337D6" FromRole="Hopdong" ToRole="Status" />
           <NavigationProperty Name="lichtaps" Relationship="Self.FK__lichtap__idtime__6383C8BA" FromRole="Hopdong" ToRole="lichtap" />
         </EntityType>
+        <EntityType Name="LichSu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idnv" Type="Int32" />
+          <Property Name="idkh" Type="Int32" />
+          <Property Name="maso" Type="Int32" />
+          <Property Name="noidung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tien" Type="Double" />
+          <Property Name="ngay" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TTNV" Relationship="Self.FK__LichSu__tien__160F4887" FromRole="LichSu" ToRole="TTNV" />
+        </EntityType>
         <EntityType Name="lichtap">
           <Key>
             <PropertyRef Name="id" />
@@ -384,6 +428,7 @@
           <Property Name="ngaysinh" Type="DateTime" Precision="0" />
           <Property Name="diachi" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="cmnd" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Hinh" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Hopdongs" Relationship="Self.FK__Hopdong__idpt__5DCAEF64" FromRole="TTKH" ToRole="Hopdong" />
         </EntityType>
         <EntityType Name="TTNV">
@@ -399,7 +444,9 @@
           <Property Name="ngayvao" Type="DateTime" Precision="0" />
           <Property Name="ngayra" Type="DateTime" Precision="0" />
           <Property Name="idchucvu" Type="Int32" />
+          <Property Name="Hinh" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Chucvu" Relationship="Self.FK__TTNV__idchucvu__3E52440B" FromRole="TTNV" ToRole="Chucvu" />
+          <NavigationProperty Name="LichSus" Relationship="Self.FK__LichSu__tien__160F4887" FromRole="TTNV" ToRole="LichSu" />
           <NavigationProperty Name="PTs" Relationship="Self.FK__PT__soluonghd__5AEE82B9" FromRole="TTNV" ToRole="PT" />
           <NavigationProperty Name="taikhoans" Relationship="Self.FK__taikhoan__pass__5812160E" FromRole="TTNV" ToRole="taikhoan" />
         </EntityType>
@@ -475,6 +522,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LichSu__tien__160F4887">
+          <End Role="TTNV" Type="Self.TTNV" Multiplicity="0..1" />
+          <End Role="LichSu" Type="Self.LichSu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TTNV">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LichSu">
+              <PropertyRef Name="idnv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__lichtap__idngay__6477ECF3">
           <End Role="Ngay" Type="Self.Ngay" Multiplicity="0..1" />
           <End Role="lichtap" Type="Self.lichtap" Multiplicity="*" />
@@ -523,10 +582,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PBL" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CSDL" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Chucvus" EntityType="Self.Chucvu" />
           <EntitySet Name="GoiTaps" EntityType="Self.GoiTap" />
           <EntitySet Name="Hopdongs" EntityType="Self.Hopdong" />
+          <EntitySet Name="LichSus" EntityType="Self.LichSu" />
           <EntitySet Name="lichtaps" EntityType="Self.lichtap" />
           <EntitySet Name="Ngays" EntityType="Self.Ngay" />
           <EntitySet Name="PTs" EntityType="Self.PT" />
@@ -559,6 +619,10 @@
             <End Role="Hopdong" EntitySet="Hopdongs" />
             <End Role="lichtap" EntitySet="lichtaps" />
           </AssociationSet>
+          <AssociationSet Name="FK__LichSu__tien__160F4887" Association="Self.FK__LichSu__tien__160F4887">
+            <End Role="TTNV" EntitySet="TTNVs" />
+            <End Role="LichSu" EntitySet="LichSus" />
+          </AssociationSet>
           <AssociationSet Name="FK__lichtap__idngay__6477ECF3" Association="Self.FK__lichtap__idngay__6477ECF3">
             <End Role="Ngay" EntitySet="Ngays" />
             <End Role="lichtap" EntitySet="lichtaps" />
@@ -581,7 +645,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PBLModelStoreContainer" CdmEntityContainer="PBL">
+        <EntityContainerMapping StorageEntityContainer="PBLModelStoreContainer" CdmEntityContainer="CSDL">
           <EntitySetMapping Name="Chucvus">
             <EntityTypeMapping TypeName="PBLModel.Chucvu">
               <MappingFragment StoreEntitySet="Chucvu">
@@ -611,6 +675,19 @@
                 <ScalarProperty Name="ngayki" ColumnName="ngayki" />
                 <ScalarProperty Name="ngayhethan" ColumnName="ngayhethan" />
                 <ScalarProperty Name="idpt" ColumnName="idpt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LichSus">
+            <EntityTypeMapping TypeName="PBLModel.LichSu">
+              <MappingFragment StoreEntitySet="LichSu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idnv" ColumnName="idnv" />
+                <ScalarProperty Name="idkh" ColumnName="idkh" />
+                <ScalarProperty Name="maso" ColumnName="maso" />
+                <ScalarProperty Name="noidung" ColumnName="noidung" />
+                <ScalarProperty Name="tien" ColumnName="tien" />
+                <ScalarProperty Name="ngay" ColumnName="ngay" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -675,6 +752,7 @@
                 <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
                 <ScalarProperty Name="diachi" ColumnName="diachi" />
                 <ScalarProperty Name="cmnd" ColumnName="cmnd" />
+                <ScalarProperty Name="Hinh" ColumnName="Hinh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -690,6 +768,7 @@
                 <ScalarProperty Name="ngayvao" ColumnName="ngayvao" />
                 <ScalarProperty Name="ngayra" ColumnName="ngayra" />
                 <ScalarProperty Name="idchucvu" ColumnName="idchucvu" />
+                <ScalarProperty Name="Hinh" ColumnName="Hinh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

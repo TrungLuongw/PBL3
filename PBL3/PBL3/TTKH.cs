@@ -26,6 +26,7 @@ namespace PBL3
         public Nullable<System.DateTime> ngaysinh { get; set; }
         public string diachi { get; set; }
         public string cmnd { get; set; }
+        public byte[] Hinh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hopdong> Hopdongs { get; set; }

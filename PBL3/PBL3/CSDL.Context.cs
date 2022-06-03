@@ -16,7 +16,7 @@ namespace PBL3
     public partial class CSDL : DbContext
     {
         public CSDL()
-            : base("name=PBL")
+            : base("name=CSDL")
         {
         }
     
@@ -28,6 +28,7 @@ namespace PBL3
         public virtual DbSet<Chucvu> Chucvus { get; set; }
         public virtual DbSet<GoiTap> GoiTaps { get; set; }
         public virtual DbSet<Hopdong> Hopdongs { get; set; }
+        public virtual DbSet<LichSu> LichSus { get; set; }
         public virtual DbSet<lichtap> lichtaps { get; set; }
         public virtual DbSet<Ngay> Ngays { get; set; }
         public virtual DbSet<PT> PTs { get; set; }

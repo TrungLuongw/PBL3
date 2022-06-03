@@ -12,18 +12,16 @@ namespace PBL3
     using System;
     using System.Collections.Generic;
     
-    public partial class loai
+    public partial class LichSu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public loai()
-        {
-            this.sanphams = new HashSet<sanpham>();
-        }
-    
         public int id { get; set; }
-        public string ten { get; set; }
+        public Nullable<int> idnv { get; set; }
+        public Nullable<int> idkh { get; set; }
+        public Nullable<int> maso { get; set; }
+        public string noidung { get; set; }
+        public Nullable<double> tien { get; set; }
+        public Nullable<System.DateTime> ngay { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sanpham> sanphams { get; set; }
+        public virtual TTNV TTNV { get; set; }
     }
 }
